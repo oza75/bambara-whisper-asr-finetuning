@@ -46,7 +46,7 @@ def compute_metrics(pred, config: Configuration):
         logger.warning(f"{len(empty_references)} empty references found, ignoring them for metric computation.")
 
     # Compute the Word Error Rate (WER)
-    wer = wer_metric.compute(predictions=valid_pred_str, references=valid_label_str)
+    wer = 100 * wer_metric.compute(predictions=valid_pred_str, references=valid_label_str)
     return {"wer": wer}
 
 
