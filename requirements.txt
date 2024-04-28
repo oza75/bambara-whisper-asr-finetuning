@@ -1,0 +1,10 @@
+datasets[audio]
+transformers
+accelerate
+evaluate
+jiwer
+tensorboard
+gradio
+huggingface_hub
+torch
+deepspeed
