@@ -109,7 +109,7 @@ def parse_args():
     # Training arguments specific to Huggingface Transformers
     parser.add_argument('--gradient_checkpointing', action='store_true', default=True,
                         help='Use gradient checkpointing to save memory at the cost of slower backward pass.')
-    parser.add_argument('--fp16', action='store_true', default=True,
+    parser.add_argument('--fp16', action='store_true', default=False,
                         help='Whether to use 16-bit (mixed) precision instead of 32-bit.')
     parser.add_argument('--evaluation_strategy', type=str, default="steps",
                         help='The evaluation strategy to use.')

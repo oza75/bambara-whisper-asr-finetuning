@@ -18,7 +18,7 @@ def main():
 
     # Load configuration from parsed arguments
     config = Configuration(args)
-
+    print(args)
     # Set up the model and processor
     logging.info("Setting up model and processor...")
     model, processor, feature_extractor, tokenizer = setup_model_and_processor(config)
