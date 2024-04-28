@@ -35,8 +35,8 @@ def compute_metrics(pred, config: Configuration):
 
     # Normalize predictions and references if the flag is set
     if config.do_normalize_eval:
-        pred_str = [config.normalizer.normalize_text(pred) for pred in pred_str]
-        label_str = [config.normalizer.normalize_text(label) for label in label_str]
+        pred_str = [config.normalizer(pred) for pred in pred_str]
+        label_str = [config.normalizer(label) for label in label_str]
 
     # Filter out empty references and their corresponding predictions
     valid_pred_str, valid_label_str, empty_references = filter_empty_references(pred_str, label_str)
