@@ -30,11 +30,43 @@ def load_and_prepare_dataset(config: Configuration):
     # Apply dataset transformations: prepare and filter dataset
     logger.info("Preparing and filtering the dataset...")
 
-    def prepare_batch_wrapper(batch):
-        return prepare_batch(batch, config)
+    def prepare_batch(batch):
+        """
+        Preprocess batch of data.
+
+        Args:
+            batch (dict): A batch from the dataset.
+
+        Returns:
+            dict: A processed batch with audio features and labels.
+        """
+        # Load and possibly resample the audio data to the target sample rate
+        audio = batch["audio"]
+        feature_extractor = config.feature_extractor
+        processor = config.processor
+        normalizer = config.normalizer
+
+        # Compute log-Mel spectrogram features from the audio signal
+        input_features = feature_extractor(audio["array"], sampling_rate=audio["sampling_rate"]).input_features[0]
+        batch["input_features"] = input_features
+
+        # Compute the input length in seconds
+        batch["input_length"] = len(audio["array"]) / audio["sampling_rate"]
+
+        # Optionally, preprocess the transcription
+        transcription = batch["sentence"]
+        if config.do_lower_case:
+            transcription = transcription.lower()
+        if config.do_remove_punctuation:
+            transcription = normalizer(transcription).strip()
+
+        # Encode the transcription into label ids
+        batch["labels"] = processor.tokenizer(transcription).input_ids
+
+        return batch
 
     common_voice = common_voice.map(
-        prepare_batch_wrapper,
+        prepare_batch,
         remove_columns=common_voice.column_names["train"],
         num_proc=1
     )
@@ -45,40 +77,3 @@ def load_and_prepare_dataset(config: Configuration):
     )
 
     return common_voice
-
-
-def prepare_batch(batch, config: Configuration):
-    """
-    Preprocess batch of data.
-
-    Args:
-        batch (dict): A batch from the dataset.
-        config (Configuration): The Configuration object with preprocessing settings.
-
-    Returns:
-        dict: A processed batch with audio features and labels.
-    """
-    # Load and possibly resample the audio data to the target sample rate
-    audio = batch["audio"]
-    feature_extractor = config.feature_extractor
-    processor = config.processor
-    normalizer = config.normalizer
-
-    # Compute log-Mel spectrogram features from the audio signal
-    input_features = feature_extractor(audio["array"], sampling_rate=audio["sampling_rate"]).input_features[0]
-    batch["input_features"] = input_features
-
-    # Compute the input length in seconds
-    batch["input_length"] = len(audio["array"]) / audio["sampling_rate"]
-
-    # Optionally, preprocess the transcription
-    transcription = batch["sentence"]
-    if config.do_lower_case:
-        transcription = transcription.lower()
-    if config.do_remove_punctuation:
-        transcription = normalizer(transcription).strip()
-
-    # Encode the transcription into label ids
-    batch["labels"] = processor.tokenizer(transcription).input_ids
-
-    return batch
