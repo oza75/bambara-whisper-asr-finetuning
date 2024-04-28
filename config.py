@@ -41,6 +41,7 @@ class Configuration:
         self.logging_steps = args.logging_steps
         self.report_to = args.report_to
         self.accelerate_config = args.accelerate_config
+        self.deepspeed_config = args.deepspeed_config
         self.load_best_model_at_end = args.load_best_model_at_end
         self.metric_for_best_model = args.metric_for_best_model
         self.greater_is_better = args.greater_is_better
@@ -105,6 +106,7 @@ def parse_args():
     parser.add_argument('--warmup_steps', type=int, default=500,
                         help='Number of warmup steps for learning rate scheduler.')
     parser.add_argument('--accelerate_config', type=str, default=None, help='Path to the Accelerate configuration file')
+    parser.add_argument('--deepspeed_config', type=str, default=None, help='Path to the DeepSpeed configuration file')
 
     # Training arguments specific to Huggingface Transformers
     parser.add_argument('--gradient_checkpointing', action='store_true', default=True,

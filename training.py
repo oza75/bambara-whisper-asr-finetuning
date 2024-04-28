@@ -35,6 +35,7 @@ def setup_training_args(config: Configuration):
         logging_steps=config.logging_steps,
         report_to=config.report_to,
         accelerator_config=config.accelerate_config,
+        deepspeed=config.deepspeed_config,
         load_best_model_at_end=config.load_best_model_at_end,
         metric_for_best_model=config.metric_for_best_model,
         greater_is_better=config.greater_is_better,
