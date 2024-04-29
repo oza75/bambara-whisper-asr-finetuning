@@ -119,6 +119,7 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
     # Load the Whisper model
     logger.info(f"Loading model from checkpoint '{config.model_checkpoint}'...")
     model = WhisperForConditionalGeneration.from_pretrained(config.model_checkpoint)
+    model.resize_token_embeddings(len(tokenizer))
 
     # Apply additional configuration to the model if necessary
     model.config.forced_decoder_ids = None
