@@ -128,7 +128,9 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
 
     # Set generation config parameters
     logger.info(f"Setting model generation config for language '{config.language}'...")
-    model.generation_config.language = config.language
+    language_id = CUSTOM_TO_LANGUAGE_CODE[config.language.lower()]
+    model.generation_config.lang_to_id[f"<|{language_id}|>"] = tokenizer.convert_tokens_to_ids(f"<|{language_id}|>")
+    model.generation_config.language = config.language.lower()
     model.generation_config.task = "transcribe"
 
     return model, processor, feature_extractor, tokenizer
