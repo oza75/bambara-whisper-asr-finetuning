@@ -67,8 +67,7 @@ def load_and_prepare_dataset(config: Configuration):
 
     common_voice = common_voice.map(
         prepare_batch,
-        remove_columns=common_voice.column_names["train"],
-        num_proc=1
+        remove_columns=common_voice.column_names["train"]
     )
 
     common_voice["train"] = common_voice["train"].filter(

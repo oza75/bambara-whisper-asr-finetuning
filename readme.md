@@ -52,7 +52,7 @@ python main.py
 You can specify training parameters using command-line arguments. Here are some examples:
 
 ```
-python main.py --num_train_epochs 5 --per_device_train_batch_size 4 --learning_rate 2e-5
+accelerate launch --config-file accelerate_config.yaml main.py --deepspeed_config deepspeed_config.json --fp16 --model_checkpoint openai/whisper-medium --learning_rate 6.25e-06  --per_device_train_batch_size 64 --gradient_accumulation_steps 1 --per_device_eval_batch_size 32 --output_dir whisper-bambara-asr-002 --push_to_hub
 ```
 
 ### Available Command-Line Options
