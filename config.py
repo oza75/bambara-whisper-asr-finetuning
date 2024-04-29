@@ -83,9 +83,9 @@ def parse_args():
                         help='Pretrained model checkpoint for initialization.')
     parser.add_argument('--language', type=str, default="bambara",
                         help='Language code for the ASR model.')
-    parser.add_argument('--do_lower_case', action='store_true', default=True,
+    parser.add_argument('--do_lower_case', action='store_true', default=False,
                         help='Convert all transcriptions to lowercase.')
-    parser.add_argument('--do_remove_punctuation', action='store_true', default=True,
+    parser.add_argument('--do_remove_punctuation', action='store_true', default=False,
                         help='Remove punctuation from transcriptions.')
     parser.add_argument('--do_normalize_eval', action='store_true', default=True,
                         help="Evaluate with the 'normalised' WER.")
