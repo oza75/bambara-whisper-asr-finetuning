@@ -25,6 +25,7 @@ def setup_training_args(config: Configuration):
         warmup_steps=config.warmup_steps,
         gradient_checkpointing=config.gradient_checkpointing,
         fp16=config.fp16,
+        lr_scheduler_type=config.lr_scheduler_type,
         evaluation_strategy=config.evaluation_strategy,
         save_strategy=config.save_strategy,
         per_device_eval_batch_size=config.per_device_eval_batch_size,

@@ -28,6 +28,7 @@ class Configuration:
         self.per_device_train_batch_size = args.per_device_train_batch_size
         self.gradient_accumulation_steps = args.gradient_accumulation_steps
         self.learning_rate = args.learning_rate
+        self.lr_scheduler_type = args.lr_scheduler_type
         self.warmup_steps = args.warmup_steps
         self.gradient_checkpointing = args.gradient_checkpointing
         self.fp16 = args.fp16
@@ -103,6 +104,8 @@ def parse_args():
                         help='Number of updates steps to accumulate before performing a backward/update pass.')
     parser.add_argument('--learning_rate', type=float, default=1e-5,
                         help='Initial learning rate.')
+    parser.add_argument('--lr_scheduler_type', type=str, default='linear',
+                        help='The learning rate scheduler type, default to linear.')
     parser.add_argument('--warmup_steps', type=int, default=500,
                         help='Number of warmup steps for learning rate scheduler.')
     parser.add_argument('--accelerate_config', type=str, default=None, help='Path to the Accelerate configuration file')
