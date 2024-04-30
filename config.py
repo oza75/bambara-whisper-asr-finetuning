@@ -29,6 +29,8 @@ class Configuration:
         self.gradient_accumulation_steps = args.gradient_accumulation_steps
         self.learning_rate = args.learning_rate
         self.lr_scheduler_type = args.lr_scheduler_type
+        self.weight_decay = args.weight_decay
+        self.optim = args.optim
         self.warmup_steps = args.warmup_steps
         self.gradient_checkpointing = args.gradient_checkpointing
         self.fp16 = args.fp16
@@ -108,6 +110,10 @@ def parse_args():
                         help='The learning rate scheduler type, default to linear.')
     parser.add_argument('--warmup_steps', type=int, default=500,
                         help='Number of warmup steps for learning rate scheduler.')
+    parser.add_argument('--weight_decay', type=float, default=0.01,
+                        help='Weight decay for AdamW if we apply some.')
+    parser.add_argument('--optim', type=str, default="adamw_torch",
+                        help='The optimizer to use')
     parser.add_argument('--accelerate_config', type=str, default=None, help='Path to the Accelerate configuration file')
     parser.add_argument('--deepspeed_config', type=str, default=None, help='Path to the DeepSpeed configuration file')
 

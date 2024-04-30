@@ -17,12 +17,15 @@ def setup_training_args(config: Configuration):
     """
     logger.info("Setting up training arguments...")
     training_args = Seq2SeqTrainingArguments(
+        torch_compile=True,
         output_dir=config.output_dir,
         num_train_epochs=config.num_train_epochs,
         per_device_train_batch_size=config.per_device_train_batch_size,
         gradient_accumulation_steps=config.gradient_accumulation_steps,
         learning_rate=config.learning_rate,
         warmup_steps=config.warmup_steps,
+        optim=config.optim,
+        weight_decay=config.weight_decay,
         gradient_checkpointing=config.gradient_checkpointing,
         fp16=config.fp16,
         lr_scheduler_type=config.lr_scheduler_type,
