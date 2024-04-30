@@ -22,6 +22,7 @@ def setup_training_args(config: Configuration):
         num_train_epochs=config.num_train_epochs,
         per_device_train_batch_size=config.per_device_train_batch_size,
         gradient_accumulation_steps=config.gradient_accumulation_steps,
+        save_total_limit=config.save_total_limit,
         learning_rate=config.learning_rate,
         warmup_steps=config.warmup_steps,
         optim=config.optim,

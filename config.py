@@ -34,6 +34,7 @@ class Configuration:
         self.warmup_steps = args.warmup_steps
         self.gradient_checkpointing = args.gradient_checkpointing
         self.fp16 = args.fp16
+        self.save_total_limit = args.save_total_limit
         self.evaluation_strategy = args.evaluation_strategy
         self.save_strategy = args.save_strategy
         self.per_device_eval_batch_size = args.per_device_eval_batch_size
@@ -116,6 +117,7 @@ def parse_args():
                         help='The optimizer to use')
     parser.add_argument('--accelerate_config', type=str, default=None, help='Path to the Accelerate configuration file')
     parser.add_argument('--deepspeed_config', type=str, default=None, help='Path to the DeepSpeed configuration file')
+    parser.add_argument('--save_total_limit', type=int, default=3, help='will limit the total amount of checkpoints')
 
     # Training arguments specific to Huggingface Transformers
     parser.add_argument('--gradient_checkpointing', action='store_true', default=True,
