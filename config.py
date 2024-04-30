@@ -120,7 +120,7 @@ def parse_args():
     parser.add_argument('--save_total_limit', type=int, default=3, help='will limit the total amount of checkpoints')
 
     # Training arguments specific to Huggingface Transformers
-    parser.add_argument('--gradient_checkpointing', action='store_true', default=True,
+    parser.add_argument('--gradient_checkpointing', action='store_true', default=False,
                         help='Use gradient checkpointing to save memory at the cost of slower backward pass.')
     parser.add_argument('--fp16', action='store_true', default=True,
                         help='Whether to use 16-bit (mixed) precision instead of 32-bit.')
