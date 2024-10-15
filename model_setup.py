@@ -44,7 +44,7 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
     WhisperForConditionalGeneration,
     WhisperProcessor,
     WhisperFeatureExtractor,
-    WhisperTokenizerFast
+    WhisperTokenizer
 ]:
     """
     Set up the Whisper model and associated processor.
@@ -62,7 +62,7 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
 
     # Load the tokenizer
     logger.info(f"Loading tokenizer for language '{config.language}'...")
-    tokenizer = WhisperTokenizerFast.from_pretrained(
+    tokenizer = WhisperTokenizer.from_pretrained(
         config.model_checkpoint,
         language=config.language,
         task="transcribe"
