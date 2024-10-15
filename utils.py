@@ -4,8 +4,6 @@ import evaluate
 from datetime import datetime
 from config import Configuration
 
-from datasets import load_metric
-
 logger = logging.getLogger(__name__)
 
 # Load the WER metric

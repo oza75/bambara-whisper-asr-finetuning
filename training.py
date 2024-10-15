@@ -44,7 +44,11 @@ def setup_training_args(config: Configuration):
         load_best_model_at_end=config.load_best_model_at_end,
         metric_for_best_model=config.metric_for_best_model,
         greater_is_better=config.greater_is_better,
-        push_to_hub=config.push_to_hub
+        push_to_hub=config.push_to_hub,
+        dataloader_pin_memory=True,
+        dataloader_persistent_workers=True,
+        dataloader_prefetch_factor=2,
+        dataloader_num_workers=4,
     )
     return training_args
 

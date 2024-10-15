@@ -83,9 +83,9 @@ def parse_args():
     # Dataset and model parameters
     parser.add_argument('--max_valid_size', type=int, default=700,
                         help='Maximum size of the validation dataset.')
-    parser.add_argument('--model_checkpoint', type=str, default="oza75/whisper-bambara-asr-001",
+    parser.add_argument('--model_checkpoint', type=str, default="openai/whisper-large-v3-turbo",
                         help='Pretrained model checkpoint for initialization.')
-    parser.add_argument('--language', type=str, default="bambara",
+    parser.add_argument('--language', type=str, default="hausa",
                         help='Language code for the ASR model.')
     parser.add_argument('--do_lower_case', action='store_true', default=False,
                         help='Convert all transcriptions to lowercase.')
@@ -101,17 +101,17 @@ def parse_args():
     # Training hyperparameters
     parser.add_argument('--num_train_epochs', type=int, default=10,
                         help='Total number of training epochs.')
-    parser.add_argument('--per_device_train_batch_size', type=int, default=8,
+    parser.add_argument('--per_device_train_batch_size', type=int, default=32,
                         help='Batch size per GPU/TPU core/CPU for training.')
-    parser.add_argument('--gradient_accumulation_steps', type=int, default=8,
+    parser.add_argument('--gradient_accumulation_steps', type=int, default=1,
                         help='Number of updates steps to accumulate before performing a backward/update pass.')
-    parser.add_argument('--learning_rate', type=float, default=1e-5,
+    parser.add_argument('--learning_rate', type=float, default=5e-5,
                         help='Initial learning rate.')
     parser.add_argument('--lr_scheduler_type', type=str, default='linear',
                         help='The learning rate scheduler type, default to linear.')
     parser.add_argument('--warmup_steps', type=int, default=500,
                         help='Number of warmup steps for learning rate scheduler.')
-    parser.add_argument('--weight_decay', type=float, default=0.01,
+    parser.add_argument('--weight_decay', type=float, default=0.02,
                         help='Weight decay for AdamW if we apply some.')
     parser.add_argument('--optim', type=str, default="adamw_torch",
                         help='The optimizer to use')
@@ -142,7 +142,7 @@ def parse_args():
                         help='Number of training steps between logging events.')
 
     # Output and push to hub
-    parser.add_argument('--output_dir', type=str, default='whisper-bambara-asr-001',
+    parser.add_argument('--output_dir', type=str, default='whisper-bambara-asr-004',
                         help='The output directory where the model predictions and checkpoints will be written.')
     parser.add_argument('--load_best_model_at_end', action='store_true', default=True,
                         help='Whether to load the best model found at each evaluation.')
