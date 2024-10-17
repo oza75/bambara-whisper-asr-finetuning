@@ -81,11 +81,11 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Fine-tuning the Whisper ASR model.")
 
     # Dataset and model parameters
-    parser.add_argument('--max_valid_size', type=int, default=700,
+    parser.add_argument('--max_valid_size', type=int, default=1200,
                         help='Maximum size of the validation dataset.')
     parser.add_argument('--model_checkpoint', type=str, default="openai/whisper-large-v3-turbo",
                         help='Pretrained model checkpoint for initialization.')
-    parser.add_argument('--language', type=str, default="hausa",
+    parser.add_argument('--language', type=str, default="icelandic",
                         help='Language code for the ASR model.')
     parser.add_argument('--do_lower_case', action='store_true', default=False,
                         help='Convert all transcriptions to lowercase.')
@@ -101,11 +101,11 @@ def parse_args():
     # Training hyperparameters
     parser.add_argument('--num_train_epochs', type=int, default=10,
                         help='Total number of training epochs.')
-    parser.add_argument('--per_device_train_batch_size', type=int, default=32,
+    parser.add_argument('--per_device_train_batch_size', type=int, default=12,
                         help='Batch size per GPU/TPU core/CPU for training.')
     parser.add_argument('--gradient_accumulation_steps', type=int, default=1,
                         help='Number of updates steps to accumulate before performing a backward/update pass.')
-    parser.add_argument('--learning_rate', type=float, default=5e-5,
+    parser.add_argument('--learning_rate', type=float, default=5e-6,
                         help='Initial learning rate.')
     parser.add_argument('--lr_scheduler_type', type=str, default='linear',
                         help='The learning rate scheduler type, default to linear.')
@@ -134,11 +134,11 @@ def parse_args():
                         help='Whether to use generate to calculate generative metrics (ROUGE, BLEU).')
     parser.add_argument('--generation_max_length', type=int, default=240,
                         help='The maximum length of the sequence to be generated during evaluation.')
-    parser.add_argument('--save_steps', type=int, default=50,
+    parser.add_argument('--save_steps', type=int, default=1000,
                         help='Number of training steps between model checkpoint saves.')
-    parser.add_argument('--eval_steps', type=int, default=50,
+    parser.add_argument('--eval_steps', type=int, default=1000,
                         help='Number of training steps between evaluations.')
-    parser.add_argument('--logging_steps', type=int, default=25,
+    parser.add_argument('--logging_steps', type=int, default=50,
                         help='Number of training steps between logging events.')
 
     # Output and push to hub
