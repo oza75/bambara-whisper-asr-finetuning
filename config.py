@@ -81,11 +81,11 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Fine-tuning the Whisper ASR model.")
 
     # Dataset and model parameters
-    parser.add_argument('--max_valid_size', type=int, default=700,
+    parser.add_argument('--max_valid_size', type=int, default=1200,
                         help='Maximum size of the validation dataset.')
     parser.add_argument('--model_checkpoint', type=str, default="openai/whisper-large-v3-turbo",
                         help='Pretrained model checkpoint for initialization.')
-    parser.add_argument('--language', type=str, default="hausa",
+    parser.add_argument('--language', type=str, default="french",
                         help='Language code for the ASR model.')
     parser.add_argument('--do_lower_case', action='store_true', default=False,
                         help='Convert all transcriptions to lowercase.')
@@ -142,7 +142,7 @@ def parse_args():
                         help='Number of training steps between logging events.')
 
     # Output and push to hub
-    parser.add_argument('--output_dir', type=str, default='whisper-bambara-asr-004',
+    parser.add_argument('--output_dir', type=str, default='whisper-bambara-asr-005',
                         help='The output directory where the model predictions and checkpoints will be written.')
     parser.add_argument('--load_best_model_at_end', action='store_true', default=True,
                         help='Whether to load the best model found at each evaluation.')

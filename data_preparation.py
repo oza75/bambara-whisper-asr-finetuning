@@ -20,8 +20,8 @@ def load_and_prepare_dataset(config: Configuration):
     common_voice['test'] = common_voice['test'].shuffle(seed=42).select(
         range(min(config.max_valid_size, len(common_voice['test']))))
 
-    logger.info("Removing unnecessary columns and renaming 'bambara' to 'sentence'...")
-    common_voice = common_voice.remove_columns(['french', 'duration']).rename_column("bambara", "sentence")
+    logger.info("Removing unnecessary columns and renaming 'french' to 'sentence'...")
+    common_voice = common_voice.remove_columns(['bambara', 'duration']).rename_column("french", "sentence")
 
     # Set audio column to dataset format and resample if necessary
     logger.info(f"Resampling audio data to {config.feature_extractor.sampling_rate} Hz...")

@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 # Load the WER metric
 wer_metric = evaluate.load("wer")
+blue_metric = evaluate.load("bleu")
 
 
 def compute_metrics(pred, config: Configuration):
@@ -45,7 +46,8 @@ def compute_metrics(pred, config: Configuration):
 
     # Compute the Word Error Rate (WER)
     wer = 100 * wer_metric.compute(predictions=valid_pred_str, references=valid_label_str)
-    return {"wer": wer}
+    bleu = blue_metric.compute(predictions=valid_pred_str, references=valid_label_str)
+    return {"wer": wer, "bleu": bleu}
 
 
 def filter_empty_references(pred_str, label_str):
