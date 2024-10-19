@@ -65,7 +65,7 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
     tokenizer = WhisperTokenizer.from_pretrained(
         config.model_checkpoint,
         language=config.language,
-        task="transcribe"
+        task="translate"
     )
 
     # Create the processor using the feature extractor and tokenizer
@@ -84,6 +84,6 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
     # Set generation config parameters
     logger.info(f"Setting model generation config for language '{config.language}'...")
     model.generation_config.language = config.language.lower()
-    model.generation_config.task = "transcribe"
+    model.generation_config.task = "translate"
 
     return model, processor, feature_extractor, tokenizer

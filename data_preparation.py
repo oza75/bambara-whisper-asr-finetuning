@@ -16,12 +16,12 @@ def load_and_prepare_dataset(config: Configuration):
         DatasetDict: A dictionary containing the processed 'train' and 'test' datasets.
     """
     logger.info(f"Loading the {config.dataset} dataset from the Hugging Face Hub...")
-    common_voice = load_dataset(config.dataset)
+    common_voice = load_dataset(config.dataset, "bm-fr-en")
     common_voice['test'] = common_voice['test'].shuffle(seed=42).select(
         range(min(config.max_valid_size, len(common_voice['test']))))
 
-    logger.info("Removing unnecessary columns and renaming 'bambara' to 'sentence'...")
-    common_voice = common_voice.remove_columns(['french', 'duration']).rename_column("bambara", "sentence")
+    logger.info("Removing unnecessary columns and renaming 'english' to 'sentence'...")
+    common_voice = common_voice.remove_columns(['french', 'duration', 'bambara']).rename_column("english", "sentence")
 
     # Set audio column to dataset format and resample if necessary
     logger.info(f"Resampling audio data to {config.feature_extractor.sampling_rate} Hz...")
