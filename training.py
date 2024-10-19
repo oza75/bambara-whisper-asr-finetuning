@@ -74,7 +74,7 @@ def create_trainer(model, config: Configuration, data_collator, compute_metrics,
         model: The model to be trained.
         config (Configuration): Configuration object containing training parameters.
         data_collator: Data collator used for generating batches.
-        compute_metrics (function): Function to compute metrics during evaluation.
+        compute_metrics (Optional[function]): Function to compute metrics during evaluation.
         train_dataset (Dataset): The dataset for training.
         eval_dataset (Dataset): The dataset for evaluation.
 

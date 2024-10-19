@@ -33,7 +33,10 @@ def main():
     datasets = load_and_prepare_dataset(config)
 
     # Loading the data collator
-    data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
+    data_collator = DataCollatorSpeechSeq2SeqWithPadding(
+        processor=processor,
+        decoder_start_token_id=model.config.decoder_start_token_id
+    )
 
     # Create the trainer
     logging.info("Creating the trainer...")
@@ -41,7 +44,8 @@ def main():
         model=model,
         config=config,
         data_collator=data_collator,
-        compute_metrics=lambda pred: compute_metrics(pred, config),
+        # compute_metrics=lambda pred: compute_metrics(pred, config),
+        compute_metrics=None,
         train_dataset=datasets["train"],
         eval_dataset=datasets["test"]
     )

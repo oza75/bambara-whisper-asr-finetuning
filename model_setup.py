@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class DataCollatorSpeechSeq2SeqWithPadding:
     processor: Any
+    decoder_start_token_id: int
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
         # split inputs and labels since they have to be of different lengths and need different padding methods
@@ -32,7 +33,7 @@ class DataCollatorSpeechSeq2SeqWithPadding:
 
         # if bos token is appended in previous tokenization step,
         # cut bos token here as it's append later anyways
-        if (labels[:, 0] == self.processor.tokenizer.bos_token_id).all().cpu().item():
+        if (labels[:, 0] == self.decoder_start_token_id).all().cpu().item():
             labels = labels[:, 1:]
 
         batch["labels"] = labels
@@ -65,7 +66,6 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
     tokenizer = WhisperTokenizer.from_pretrained(
         config.model_checkpoint,
         language=config.language,
-        task="translate"
     )
 
     # Create the processor using the feature extractor and tokenizer
@@ -77,13 +77,14 @@ def setup_model_and_processor(config: Configuration) -> Tuple[
     model = WhisperForConditionalGeneration.from_pretrained(config.model_checkpoint)
 
     # Apply additional configuration to the model if necessary
-    model.config.forced_decoder_ids = None
-    model.config.suppress_tokens = []
-    model.config.use_cache = False
+    # model.config.forced_decoder_ids = None
+    # model.config.suppress_tokens = []
+    # model.config.use_cache = False
 
     # Set generation config parameters
     logger.info(f"Setting model generation config for language '{config.language}'...")
     model.generation_config.language = config.language.lower()
-    model.generation_config.task = "translate"
+    # model.generation_config.task = "translate"
+    model.generation_config.forced_decoder_ids = None
 
     return model, processor, feature_extractor, tokenizer
